@@ -1,12 +1,6 @@
-import Page from "@/app/dashboard/page"
-
-
+import Page from "@/app/dashboard/page";
 function Home() {
-  return (
-
-        <Page />
-
-  )
+  return <Page />;
 }
 
-export default Home
+export default Home;
