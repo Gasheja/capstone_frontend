@@ -5,12 +5,14 @@ import App from "./App.tsx";
 import "./index.css";
 import { ThemeProvider } from "./components/provider/theme-provider.tsx";
 import { ActiveThemeProvider } from "./components/active-theme.tsx";
+import { Toaster } from "@/components/ui/sonner"
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
       <ThemeProvider>
         <ActiveThemeProvider initialTheme="green">
+         <Toaster position="top-right" richColors />
           <App />
         </ActiveThemeProvider>
       </ThemeProvider>

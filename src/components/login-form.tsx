@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input"
 import { useState } from "react"
 import { useAuthContext } from "./auth/useAuthContext"
 import { useNavigate } from "react-router-dom"
+import { toast } from "sonner"
 
 export function LoginForm({
   className,
@@ -35,18 +36,27 @@ export function LoginForm({
     e.preventDefault()
     setError("")
     setIsLoading(true)
+    // console.log(email, password)
 
-    console.log(email, password)
 
-    try {
-      await login({ email, password })
-     navigate("/", { replace: true }) 
-    } catch (err: any) {
-        console.log(err)
-      setError(err.response?.data?.message || "Login failed. Please try again.")
-    } finally {
-      setIsLoading(false)
-    }
+    // Toast Promise 
+    toast.promise(
+      login({ email, password }),
+      {
+        loading: "Logging in...",
+        success: () => {
+          navigate("/", { replace: true })
+          return "Login successful."
+          setIsLoading(false)
+        },
+        error: (err: any) => err.response?.data?.message || "Login failed. Please try again.",
+        finally: () => {
+            setIsLoading(false);
+          },
+      }
+    )
+
+
   }
 
   return (
