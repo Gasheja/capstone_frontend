@@ -10,7 +10,9 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
       <ThemeProvider>
-        <ActiveThemeProvider initialTheme="green"><App /></ActiveThemeProvider>
+        <ActiveThemeProvider initialTheme="green">
+          <App />
+        </ActiveThemeProvider>
       </ThemeProvider>
     </BrowserRouter>
   </StrictMode>
