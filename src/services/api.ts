@@ -12,7 +12,6 @@ const api = axios.create({
   },
 });
 
-// Request interceptor to add auth token
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('auth_token');
   if (token) {
@@ -21,12 +20,12 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-// Response interceptor to handle errors
 api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      localStorage.removeItem('auth_token');    
+      localStorage.removeItem('auth_token');
+      // window.location.href = '/login';
     }
     return Promise.reject(error);
   }
@@ -43,8 +42,24 @@ export const authAPI = {
 
 export const citizensAPI = {
   getAll: () => api.get<{ citizens: Citizen[] }>('/citizens'),
+  getMyProfile: () => api.get<{ citizen: Citizen }>('/citizens/my-profile'),
   create: (data: Partial<Citizen>) => api.post<Citizen>('/citizens', data),
+  update: (id: number, data: Partial<Citizen>) => api.put<Citizen>(`/citizens/${id}`, data),
   verify: (id: number, data: any) => api.patch<Citizen>(`/citizens/${id}/verify`, data),
+  delete: (id: number) => api.delete(`/citizens/${id}`),
+};
+
+export const usersAPI = {
+  getAll: () => api.get<{ users: User[] }>('/users'),
+  create: (data: any) => api.post<User>('/users', data),
+  update: (id: number, data: any) => api.put<User>(`/users/${id}`, data),
+  delete: (id: number) => api.delete(`/users/${id}`),
+};
+
+export const analyticsAPI = {
+  getStats: () => api.get('/analytics/stats'),
+  getVerificationTrends: () => api.get('/analytics/verification-trends'),
+  getDemographics: () => api.get('/analytics/demographics'),
 };
 
 export default api;

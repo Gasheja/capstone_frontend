@@ -4,6 +4,8 @@ export interface User {
   name: string;
   email: string;
   role: 'system_admin' | 'local_leader' | 'policy_maker' | 'citizen';
+  created_at: string;
+  updated_at: string;
 }
 
 export interface Citizen {

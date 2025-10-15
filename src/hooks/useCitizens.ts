@@ -4,11 +4,13 @@ import { citizensAPI } from '@/services/api';
 
 export const useCitizens = () => {
   const queryClient = useQueryClient();
-
   const citizensQuery = useQuery({
     queryKey: ['citizens'],
     queryFn: () => citizensAPI.getAll().then(res => res.data.citizens),
   });
+
+
+  // console.log('citizensQuery', useCitizens);
 
   const createMutation = useMutation({
     mutationFn: citizensAPI.create,
@@ -25,10 +27,20 @@ export const useCitizens = () => {
     },
   });
 
+
+  const updateMutation = useMutation({
+    mutationFn: ({ id, ...data }: { id: number } & any) => 
+      citizensAPI.update(id, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['citizens'] });
+    },
+  });
+
   return {
     citizens: citizensQuery.data || [],
     isLoading: citizensQuery.isLoading,
     createCitizen: createMutation.mutate,
     verifyCitizen: verifyMutation.mutate,
+    updateCitizen: updateMutation.mutate,
   };
 };
