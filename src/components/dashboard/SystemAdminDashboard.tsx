@@ -28,11 +28,14 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { IconUsers, IconShield, IconSettings, IconPlus, IconDotsVertical } from "@tabler/icons-react"
 import { useUsers } from "@/hooks/useUsers"
-import { User } from "@/types"
+import type { User } from "@/types"
 
 export const SystemAdminDashboard: React.FC = () => {
   const { users, isLoading, updateUser, deleteUser } = useUsers()
-  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false)
+  const [
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    isCreateDialogOpen,
+     setIsCreateDialogOpen] = useState(false)
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
   const [selectedUser, setSelectedUser] = useState<User | null>(null)
   const [searchTerm, setSearchTerm] = useState("")

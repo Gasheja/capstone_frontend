@@ -18,11 +18,11 @@ import {
 } from 'recharts'
 import { IconChartBar, IconFileAnalytics, IconTrendingUp, IconDownload } from "@tabler/icons-react"
 import { useAnalytics } from "@/hooks/useAnalytics"
-import { useCitizens } from "@/hooks/useCitizens"
+// import { useCitizens } from "@/hooks/useCitizens"
 
 export const PolicyMakerDashboard: React.FC = () => {
   const { stats, trends, demographics, isLoading } = useAnalytics()
-  const { citizens } = useCitizens()
+  // const { citizens } = useCitizens()
 
   const verificationData = [
     { name: 'Verified', value: stats?.verified_citizens || 0 },
