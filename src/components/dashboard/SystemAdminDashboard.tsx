@@ -26,16 +26,18 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { IconUsers, IconShield, IconSettings, IconPlus, IconDotsVertical } from "@tabler/icons-react"
+import { IconUsers, IconShield, IconSettings, 
+  // IconPlus,
+   IconDotsVertical } from "@tabler/icons-react"
 import { useUsers } from "@/hooks/useUsers"
 import type { User } from "@/types"
 
 export const SystemAdminDashboard: React.FC = () => {
   const { users, isLoading, updateUser, deleteUser } = useUsers()
-  const [
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    isCreateDialogOpen,
-     setIsCreateDialogOpen] = useState(false)
+  // const [
+   
+  //   isCreateDialogOpen,
+  //    setIsCreateDialogOpen] = useState(false)
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
   const [selectedUser, setSelectedUser] = useState<User | null>(null)
   const [searchTerm, setSearchTerm] = useState("")
@@ -106,10 +108,10 @@ export const SystemAdminDashboard: React.FC = () => {
             Manage users, security, and system settings
           </p>
         </div>
-        <Button onClick={() => setIsCreateDialogOpen(true)}>
+        {/* <Button onClick={() => setIsCreateDialogOpen(true)}>
           <IconPlus className="h-4 w-4 mr-2" />
           Add User
-        </Button>
+        </Button> */}
       </div>
 
       {/* Stats Grid */}

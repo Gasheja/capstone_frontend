@@ -119,7 +119,7 @@ export const PolicyMakerDashboard: React.FC = () => {
                   fill="#8884d8"
                   dataKey="value"
                 >
-                  {verificationData.map((entry, index) => (
+                  {verificationData.map((_, index) => (
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                   ))}
                 </Pie>
