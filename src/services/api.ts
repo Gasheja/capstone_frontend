@@ -2,7 +2,7 @@
 import axios from 'axios';
 import type { User, Citizen, AuthResponse } from '@/types';
 
-const API_BASE_URL = 'http://user-management.zen.rw/api';
+const API_BASE_URL = 'https://user-management.zen.rw/api';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
