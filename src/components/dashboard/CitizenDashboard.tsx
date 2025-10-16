@@ -23,9 +23,9 @@ export const CitizenDashboard: React.FC = () => {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false)
   
-  const userCitizen = citizens.find(c => c.user_id === user?.id)
+const flatCitizens = Array.isArray(citizens[0]) ? citizens[0] : citizens
+const userCitizen = flatCitizens.find(c => String(c.user_id) === String(user?.id))
 
-  console.log('userCitizen Data: ', citizens)
 
   const stats = [
     { title: "Verification Status", value: userCitizen?.verification_status || "Not Applied", description: "Your application status", icon: IconUser },
