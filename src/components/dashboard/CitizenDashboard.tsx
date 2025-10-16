@@ -25,7 +25,7 @@ export const CitizenDashboard: React.FC = () => {
   
   const userCitizen = citizens.find(c => c.user_id === user?.id)
 
-  console.log('userCitizen : ', citizens)
+  console.log('userCitizen Data: ', citizens)
 
   const stats = [
     { title: "Verification Status", value: userCitizen?.verification_status || "Not Applied", description: "Your application status", icon: IconUser },
