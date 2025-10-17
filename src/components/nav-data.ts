@@ -6,9 +6,9 @@ import {
   IconChartBar,
   // IconSettings,
   // IconShield,
-  IconFileAnalytics,
+  // IconFileAnalytics,
   IconUser,
-  IconListDetails,
+  // IconListDetails,
   IconUserCog,
 } from "@tabler/icons-react"
 
