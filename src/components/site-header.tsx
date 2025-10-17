@@ -6,7 +6,7 @@ import { ModeToggle } from "./ui/mode-toggle"
 // import { ThemeSelector } from "./theme-selector"
 import {
   //  Bell, 
-   Settings, User, LogOut, HelpCircle } from "lucide-react";
+   Settings, User, LogOut } from "lucide-react";
 import { Avatar, AvatarFallback,
   //  AvatarImage 
   } from "@/components/ui/avatar";
@@ -101,13 +101,13 @@ export function SiteHeader() {
                 </div>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <Link to="/dashboard/settings">
+              <Link to="/account-settings">
                 <DropdownMenuItem>
                   <User className="mr-2 h-4 w-4" />
                   <span>Profile</span>
                 </DropdownMenuItem>
               </Link>
-              <Link to="/dashboard/settings">
+              <Link to="/account-settings">
                 {" "}
                 <DropdownMenuItem>
                   <Settings className="mr-2 h-4 w-4" />
@@ -115,10 +115,10 @@ export function SiteHeader() {
                 </DropdownMenuItem>{" "}
               </Link>
 
-              <DropdownMenuItem>
+              {/* <DropdownMenuItem>
                 <HelpCircle className="mr-2 h-4 w-4" />
                 <span>Support</span>
-              </DropdownMenuItem>
+              </DropdownMenuItem> */}
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={handleLogout}>
                 <LogOut className="mr-2 h-4 w-4" />

@@ -4,13 +4,12 @@ import {
   IconUsers,
   IconUserCheck,
   IconChartBar,
-  IconSettings,
-  IconHelp,
-  IconSearch,
-  IconShield,
+  // IconSettings,
+  // IconShield,
   IconFileAnalytics,
   IconUser,
   IconListDetails,
+  IconUserCog,
 } from "@tabler/icons-react"
 
 export interface NavItem {
@@ -46,18 +45,18 @@ export const getNavData = (userRole: string) => {
       icon: IconUsers,
       roles: ['system_admin']
     },
-    {
-      title: "System Settings",
-      url: "/settings",
-      icon: IconSettings,
-      roles: ['system_admin']
-    },
-    {
-      title: "Security",
-      url: "/security",
-      icon: IconShield,
-      roles: ['system_admin']
-    },
+    // {
+    //   title: "System Settings",
+    //   url: "/system-settings",
+    //   icon: IconSettings,
+    //   roles: ['system_admin']
+    // },
+    // {
+    //   title: "Security",
+    //   url: "/security",
+    //   icon: IconShield,
+    //   roles: ['system_admin']
+    // },
 
     // Local Leader
     {
@@ -66,12 +65,12 @@ export const getNavData = (userRole: string) => {
       icon: IconUserCheck,
       roles: ['local_leader']
     },
-    {
-      title: "Citizen Records",
-      url: "/citizens",
-      icon: IconListDetails,
-      roles: ['local_leader']
-    },
+    // {
+    //   title: "Citizen Records",
+    //   url: "/citizens",
+    //   icon: IconListDetails,
+    //   roles: ['local_leader', 'system_admin']
+    // },
 
     // Policy Maker
     {
@@ -104,19 +103,9 @@ export const getNavData = (userRole: string) => {
 
   const navSecondary: NavItem[] = [
     {
-      title: "Search",
-      url: "/search",
-      icon: IconSearch,
-    },
-    {
-      title: "Settings",
-      url: "/settings",
-      icon: IconSettings,
-    },
-    {
-      title: "Get Help",
-      url: "/help",
-      icon: IconHelp,
+      title: "Account Settings",
+      url: "/account-settings",
+      icon: IconUserCog,
     },
   ]
 
