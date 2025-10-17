@@ -1,6 +1,8 @@
 // services/api.ts
 import axios from 'axios';
-import type { User, Citizen, AuthResponse } from '@/types';
+import  type{ User, Citizen, AuthResponse } from '@/types';
+
+// const API_BASE_URL = 'http://localhost:8000/api';
 
 const API_BASE_URL = 'https://user-management.zen.rw/api';
 
@@ -60,6 +62,21 @@ export const analyticsAPI = {
   getStats: () => api.get('/analytics/stats'),
   getVerificationTrends: () => api.get('/analytics/verification-trends'),
   getDemographics: () => api.get('/analytics/demographics'),
+};
+
+export const settingsAPI = {
+  getSystemSettings: () => api.get('/settings/system'),
+  updateSystemSettings: (data: any) => api.put('/settings/system', data),
+  getAccountSettings: () => api.get('/settings/account'),
+  updateAccountSettings: (data: any) => api.put('/settings/account', data),
+  changePassword: (data: any) => api.post('/settings/change-password', data),
+};
+
+export const securityAPI = {
+  getSecuritySettings: () => api.get('/security/settings'),
+  updateSecuritySettings: (data: any) => api.put('/security/settings', data),
+  getAuditLogs: () => api.get('/security/audit-logs'),
+  getActiveSessions: () => api.get('/security/active-sessions'),
 };
 
 export default api;
