@@ -79,12 +79,12 @@ export const getNavData = (userRole: string) => {
       icon: IconChartBar,
       roles: ['policy_maker']
     },
-    {
-      title: "Reports",
-      url: "/reports",
-      icon: IconFileAnalytics,
-      roles: ['policy_maker']
-    },
+    // {
+    //   title: "Reports",
+    //   url: "/reports",
+    //   icon: IconFileAnalytics,
+    //   roles: ['policy_maker']
+    // },
 
     // Citizen
     {
@@ -93,12 +93,12 @@ export const getNavData = (userRole: string) => {
       icon: IconUser,
       roles: ['citizen']
     },
-    {
-      title: "My Applications",
-      url: "/applications",
-      icon: IconListDetails,
-      roles: ['citizen']
-    },
+    // {
+    //   title: "My Applications",
+    //   url: "/applications",
+    //   icon: IconListDetails,
+    //   roles: ['citizen']
+    // },
   ]
 
   const navSecondary: NavItem[] = [
