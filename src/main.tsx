@@ -11,7 +11,7 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
       <ThemeProvider>
-        <ActiveThemeProvider initialTheme="green">
+        <ActiveThemeProvider initialTheme="system">
          <Toaster position="top-right" richColors />
           <App />
         </ActiveThemeProvider>
