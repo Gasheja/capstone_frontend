@@ -23,6 +23,7 @@ import {
 import { IconUserCheck, IconUser, IconClock } from "@tabler/icons-react"
 import { useCitizens } from "@/hooks/useCitizens"
 import type { Citizen } from "@/types"
+import { toast } from 'sonner'
 
 export const LocalLeaderDashboard: React.FC = () => {
   const { citizens, verifyCitizen } = useCitizens()
@@ -63,7 +64,9 @@ export const LocalLeaderDashboard: React.FC = () => {
       setIsVerifyDialogOpen(false)
       setSelectedCitizen(null)
       setVerificationNotes("")
+      toast.success(`Citizen ${status} successfully`)
     } catch (error) {
+      
       console.error('Verification failed:', error)
     }
   }
