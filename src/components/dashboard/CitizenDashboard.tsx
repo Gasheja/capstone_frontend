@@ -16,6 +16,7 @@ import {
 import { IconUser, IconFileDescription, IconClock, IconEdit } from "@tabler/icons-react"
 import { useAuthContext } from "../auth/useAuthContext"
 import { useCitizens } from "@/hooks/useCitizens"
+import { toast } from 'sonner'
 
 export const CitizenDashboard: React.FC = () => {
   const { user } = useAuthContext()
@@ -48,6 +49,7 @@ const userCitizen = flatCitizens.find(c => String(c.user_id) === String(user?.id
     try {
       if (userCitizen) {
         await updateCitizen({ id: userCitizen.id, ...data })
+        toast.success('Profile updated successfully')
       } else {
         await createCitizen(data)
       }
