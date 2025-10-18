@@ -17,7 +17,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { useState } from "react"
 import { useAuthContext } from "./auth/useAuthContext"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import { toast } from "sonner"
 
 export function LoginForm({
@@ -27,36 +27,32 @@ export function LoginForm({
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState("")
-  
+
   const { login } = useAuthContext()
   const navigate = useNavigate()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setError("")
     setIsLoading(true)
-    // console.log(email, password)
 
-
-    // Toast Promise 
+    const p = login({ email, password }) // p is a Promise
     toast.promise(
-      login({ email, password }),
+      p,
       {
         loading: "Logging in...",
         success: () => {
           navigate("/", { replace: true })
           return "Login successful."
-          setIsLoading(false)
         },
-        error: (err: any) => err.response?.data?.message || "Login failed. Please try again.",
-        finally: () => {
-            setIsLoading(false);
-          },
+        error: (err: any) => {
+          return err.response?.data?.message || "Login failed. Please try again."
+        },
       }
     )
 
-
+    p.finally(() => {
+      setIsLoading(false)
+    })
   }
 
   return (
@@ -86,35 +82,29 @@ export function LoginForm({
               <Field>
                 <div className="flex items-center">
                   <FieldLabel htmlFor="password">Password</FieldLabel>
-                  {/* <a
-                    href="#"
-                    className="ml-auto text-sm underline-offset-4 hover:underline"
-                  >
-                    Forgot your password?
-                  </a> */}
                 </div>
-                <Input 
-                  id="password" 
-                  type="password" 
+                <Input
+                  id="password"
+                  type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  required 
+                  required
                   disabled={isLoading}
                 />
               </Field>
-              
-              {error && (
-                <div className="text-sm text-red-600 bg-red-50 p-3 rounded-md">
-                  {error}
-                </div>
-              )}
-              
+
               <Field>
-                <Button type="submit" disabled={isLoading}>
+                <Button type="submit" disabled={isLoading} className="w-full">
                   {isLoading ? "Logging in..." : "Login"}
                 </Button>
                 <FieldDescription className="text-center">
-                  Don&apos;t have an account? <a href="#" className="text-blue-600 hover:underline">Sign up</a>
+                  Don&apos;t have an account?{" "}
+                  <Link
+                    to="/register"
+                    className="text-blue-600 hover:underline font-medium"
+                  >
+                    Register as Citizen
+                  </Link>
                 </FieldDescription>
               </Field>
             </FieldGroup>

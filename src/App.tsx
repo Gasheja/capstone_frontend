@@ -14,6 +14,7 @@ import CitizenVerification from "@/pages/local-leader/CitizenVerification";
 import Analytics from "@/pages/policy-maker/Analytic";
 import Profile from "@/pages/citizen/Profile";
 import AccountSettings from "@/pages/settings/AccountSettings";
+import Register from "./pages/auth/Register";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -31,6 +32,7 @@ function App() {
         <Toaster position="top-right" duration={4000} richColors closeButton />
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           
           {/* Dashboard */}
           <Route

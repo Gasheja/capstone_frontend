@@ -21,7 +21,7 @@ export const useAuth = () => {
   });
 
   const registerMutation = useMutation({
-    mutationFn: authAPI.register,
+    mutationFn: (data: any) => authAPI.register(data),
     onSuccess: (data) => {
       localStorage.setItem('auth_token', data.data.token);
       queryClient.setQueryData(['user'], data.data.user);
