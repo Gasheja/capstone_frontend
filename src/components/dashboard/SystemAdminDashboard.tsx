@@ -26,26 +26,60 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { IconUsers, IconShield, IconSettings, 
-  // IconPlus,
-   IconDotsVertical } from "@tabler/icons-react"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { 
+  IconUsers, 
+  IconShield, 
+  // IconSettings, 
+  IconDotsVertical,
+  IconUser,
+  IconUserCheck,
+  IconCalendar,
+  IconPhone,
+  IconMapPin,
+  IconId,
+  IconEye
+} from "@tabler/icons-react"
 import { useUsers } from "@/hooks/useUsers"
-import type { User } from "@/types"
+import { useCitizens } from "@/hooks/useCitizens"
+import type { User, Citizen } from "@/types"
+import { showToast } from "@/lib/utils"
 
 export const SystemAdminDashboard: React.FC = () => {
-  const { users, isLoading, updateUser, deleteUser } = useUsers()
-  // const [
-   
-  //   isCreateDialogOpen,
-  //    setIsCreateDialogOpen] = useState(false)
+  const { users, isLoading: usersLoading, updateUser, deleteUser } = useUsers()
+  const { citizens, isLoading: citizensLoading, verifyCitizen } = useCitizens()
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
+  const [isViewCitizenDialogOpen, setIsViewCitizenDialogOpen] = useState(false)
   const [selectedUser, setSelectedUser] = useState<User | null>(null)
+  const [selectedCitizen, setSelectedCitizen] = useState<Citizen | null>(null)
   const [searchTerm, setSearchTerm] = useState("")
+  const [activeTab, setActiveTab] = useState("users")
 
   const stats = [
-    { title: "Total Users", value: users.length.toString(), description: "Across all roles", icon: IconUsers },
-    { title: "System Admins", value: users.filter(u => u.role === 'system_admin').length.toString(), description: "Administrative users", icon: IconShield },
-    { title: "Active System", value: "100%", description: "All systems operational", icon: IconSettings },
+    { 
+      title: "Total Users", 
+      value: users.length.toString(), 
+      description: "Across all roles", 
+      icon: IconUsers 
+    },
+    { 
+      title: "Total Citizens", 
+      value: citizens.length.toString(), 
+      description: "Registered citizens", 
+      icon: IconUser 
+    },
+    { 
+      title: "Verified Citizens", 
+      value: citizens.filter(c => c.verification_status === 'verified').length.toString(), 
+      description: "Successfully verified", 
+      icon: IconUserCheck 
+    },
+    { 
+      title: "Pending Verification", 
+      value: citizens.filter(c => c.verification_status === 'pending').length.toString(), 
+      description: "Awaiting review", 
+      icon: IconShield 
+    },
   ]
 
   const filteredUsers = users.filter(user =>
@@ -54,17 +88,29 @@ export const SystemAdminDashboard: React.FC = () => {
     user.role.toLowerCase().includes(searchTerm.toLowerCase())
   )
 
+  const filteredCitizens = citizens.filter(citizen =>
+    citizen.full_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    citizen.national_id.includes(searchTerm) ||
+    citizen.phone_number.includes(searchTerm)
+  )
+
   const handleEditUser = (user: User) => {
     setSelectedUser(user)
     setIsEditDialogOpen(true)
+  }
+
+  const handleViewCitizen = (citizen: Citizen) => {
+    setSelectedCitizen(citizen)
+    setIsViewCitizenDialogOpen(true)
   }
 
   const handleDeleteUser = async (userId: number) => {
     if (window.confirm('Are you sure you want to delete this user?')) {
       try {
         await deleteUser(userId)
-      } catch (error) {
-        console.error('Failed to delete user:', error)
+        showToast.success('User deleted successfully')
+      } catch (error: any) {
+        showToast.error(error.response?.data?.message || 'Failed to delete user')
       }
     }
   }
@@ -82,10 +128,25 @@ export const SystemAdminDashboard: React.FC = () => {
 
     try {
       await updateUser({ id: selectedUser.id, ...data })
+      showToast.success('User updated successfully')
       setIsEditDialogOpen(false)
       setSelectedUser(null)
-    } catch (error) {
-      console.error('Failed to update user:', error)
+    } catch (error: any) {
+      showToast.error(error.response?.data?.message || 'Failed to update user')
+    }
+  }
+
+  const handleVerifyCitizen = async (citizenId: number, status: 'verified' | 'rejected') => {
+    try {
+      await verifyCitizen({ 
+        id: citizenId, 
+        verification_status: status,
+        verification_notes: `Verified by system administrator` 
+      })
+      showToast.success(`Citizen ${status} successfully`)
+      setIsViewCitizenDialogOpen(false)
+    } catch (error: any) {
+      showToast.error(error.response?.data?.message || 'Verification failed')
     }
   }
 
@@ -99,23 +160,28 @@ export const SystemAdminDashboard: React.FC = () => {
     return roleColors[role as keyof typeof roleColors] || 'bg-gray-100 text-gray-800'
   }
 
+  const getStatusBadge = (status: string) => {
+    const statusColors = {
+      verified: 'bg-green-100 text-green-800',
+      pending: 'bg-yellow-100 text-yellow-800',
+      rejected: 'bg-red-100 text-red-800',
+    }
+    return statusColors[status as keyof typeof statusColors] || 'bg-gray-100 text-gray-800'
+  }
+
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <div>
           <h2 className="text-3xl font-bold tracking-tight">System Administration</h2>
           <p className="text-muted-foreground">
-            Manage users, security, and system settings
+            Manage users, citizens, and system settings
           </p>
         </div>
-        {/* <Button onClick={() => setIsCreateDialogOpen(true)}>
-          <IconPlus className="h-4 w-4 mr-2" />
-          Add User
-        </Button> */}
       </div>
 
       {/* Stats Grid */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         {stats.map((stat, index) => (
           <Card key={index}>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -130,73 +196,165 @@ export const SystemAdminDashboard: React.FC = () => {
         ))}
       </div>
 
-      {/* User Management Table */}
+      {/* Tabs for Users and Citizens */}
       <Card>
         <CardHeader>
-          <CardTitle>User Management</CardTitle>
-          <CardDescription>
-            Manage all system users and their permissions
-          </CardDescription>
-          <div className="flex items-center gap-4">
-            <Input
-              placeholder="Search users..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="max-w-sm"
-            />
-          </div>
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="users">User Management</TabsTrigger>
+              <TabsTrigger value="citizens">Citizen Records</TabsTrigger>
+            </TabsList>
+            
+            {/* Users Tab Content */}
+            <TabsContent value="users" className="space-y-4">
+              <CardDescription className="pt-4">
+                Manage all system users and their permissions
+              </CardDescription>
+              <div className="flex items-center gap-4 pt-4">
+                <Input
+                  placeholder="Search users..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="max-w-sm"
+                />
+              </div>
+            </TabsContent>
+
+            {/* Citizens Tab Content */}
+            <TabsContent value="citizens" className="space-y-4">
+              <CardDescription className="pt-4">
+                View and manage all citizen records and verification status
+              </CardDescription>
+              <div className="flex items-center gap-4 pt-4">
+                <Input
+                  placeholder="Search citizens..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="max-w-sm"
+                />
+              </div>
+            </TabsContent>
+          </Tabs>
         </CardHeader>
+        
         <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>User</TableHead>
-                <TableHead>Email</TableHead>
-                <TableHead>Role</TableHead>
-                <TableHead>Joined</TableHead>
-                <TableHead className="text-right">Actions</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {filteredUsers.map((user) => (
-                <TableRow key={user.id}>
-                  <TableCell className="font-medium">{user.name}</TableCell>
-                  <TableCell>{user.email}</TableCell>
-                  <TableCell>
-                    <Badge className={getRoleBadge(user.role)}>
-                      {user.role.replace('_', ' ')}
-                    </Badge>
-                  </TableCell>
-                  <TableCell>
-                    {user.created_at ? new Date(user.created_at).toLocaleDateString() : 'N/A'}
-                  </TableCell>
-                  <TableCell className="text-right">
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="sm">
-                          <IconDotsVertical className="h-4 w-4" />
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end">
-                        <DropdownMenuItem onClick={() => handleEditUser(user)}>
-                          Edit
-                        </DropdownMenuItem>
-                        <DropdownMenuItem 
-                          onClick={() => handleDeleteUser(user.id)}
-                          className="text-red-600"
+          {/* Users Table */}
+          {activeTab === 'users' && (
+            <div className="space-y-4">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>User</TableHead>
+                    <TableHead>Email</TableHead>
+                    <TableHead>Role</TableHead>
+                    <TableHead>Joined</TableHead>
+                    <TableHead className="text-right">Actions</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {filteredUsers.map((user) => (
+                    <TableRow key={user.id}>
+                      <TableCell className="font-medium">{user.name}</TableCell>
+                      <TableCell>{user.email}</TableCell>
+                      <TableCell>
+                        <Badge className={getRoleBadge(user.role)}>
+                          {user.role.replace('_', ' ')}
+                        </Badge>
+                      </TableCell>
+                      <TableCell>
+                        {user.created_at ? new Date(user.created_at).toLocaleDateString() : 'N/A'}
+                      </TableCell>
+                      <TableCell className="text-right">
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button variant="ghost" size="sm">
+                              <IconDotsVertical className="h-4 w-4" />
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="end">
+                            <DropdownMenuItem onClick={() => handleEditUser(user)}>
+                              Edit
+                            </DropdownMenuItem>
+                            <DropdownMenuItem 
+                              onClick={() => handleDeleteUser(user.id)}
+                              className="text-red-600"
+                            >
+                              Delete
+                            </DropdownMenuItem>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+              {filteredUsers.length === 0 && (
+                <div className="text-center py-8 text-muted-foreground">
+                  {usersLoading ? 'Loading users...' : 'No users found'}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Citizens Table */}
+          {activeTab === 'citizens' && (
+            <div className="space-y-4">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Citizen</TableHead>
+                    <TableHead>National ID</TableHead>
+                    <TableHead>Contact</TableHead>
+                    <TableHead>Status</TableHead>
+                    <TableHead>Registered</TableHead>
+                    <TableHead className="text-right">Actions</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {filteredCitizens.map((citizen) => (
+                    <TableRow key={citizen.id}>
+                      <TableCell>
+                        <div className="font-medium">{citizen.full_name}</div>
+                        <div className="text-sm text-muted-foreground">
+                          User: {citizen.user?.name || 'N/A'}
+                        </div>
+                      </TableCell>
+                      <TableCell className="font-mono text-sm">
+                        {citizen.national_id}
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex items-center gap-1 text-sm">
+                          <IconPhone className="h-3 w-3" />
+                          {citizen.phone_number}
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <Badge className={getStatusBadge(citizen.verification_status)}>
+                          {citizen.verification_status}
+                        </Badge>
+                      </TableCell>
+                      <TableCell>
+                        {new Date(citizen.created_at).toLocaleDateString()}
+                      </TableCell>
+                      <TableCell className="text-right">
+                        <Button
+                          size="sm"
+                          onClick={() => handleViewCitizen(citizen)}
+                          variant="outline"
                         >
-                          Delete
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-          {filteredUsers.length === 0 && (
-            <div className="text-center py-8 text-muted-foreground">
-              {isLoading ? 'Loading users...' : 'No users found'}
+                          <IconEye className="h-4 w-4 mr-1" />
+                          View
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+              {filteredCitizens.length === 0 && (
+                <div className="text-center py-8 text-muted-foreground">
+                  {citizensLoading ? 'Loading citizens...' : 'No citizens found'}
+                </div>
+              )}
             </div>
           )}
         </CardContent>
@@ -261,6 +419,160 @@ export const SystemAdminDashboard: React.FC = () => {
               <Button type="submit">Save Changes</Button>
             </DialogFooter>
           </form>
+        </DialogContent>
+      </Dialog>
+
+      {/* View Citizen Dialog */}
+      <Dialog open={isViewCitizenDialogOpen} onOpenChange={setIsViewCitizenDialogOpen}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle>Citizen Details</DialogTitle>
+            <DialogDescription>
+              Complete information for {selectedCitizen?.full_name}
+            </DialogDescription>
+          </DialogHeader>
+          
+          {selectedCitizen && (
+            <div className="space-y-6">
+              {/* Personal Information */}
+              <div className="grid gap-6 md:grid-cols-2">
+                <Card>
+                  <CardHeader className="pb-3">
+                    <CardTitle className="text-sm flex items-center gap-2">
+                      <IconUser className="h-4 w-4" />
+                      Personal Information
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    <div className="flex justify-between">
+                      <span className="text-sm font-medium">Full Name</span>
+                      <span className="text-sm">{selectedCitizen.full_name}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-sm font-medium flex items-center gap-1">
+                        <IconId className="h-3 w-3" />
+                        National ID
+                      </span>
+                      <span className="text-sm font-mono">{selectedCitizen.national_id}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-sm font-medium flex items-center gap-1">
+                        <IconCalendar className="h-3 w-3" />
+                        Date of Birth
+                      </span>
+                      <span className="text-sm">
+                        {new Date(selectedCitizen.date_of_birth).toLocaleDateString()}
+                      </span>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader className="pb-3">
+                    <CardTitle className="text-sm flex items-center gap-2">
+                      <IconPhone className="h-4 w-4" />
+                      Contact Information
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    <div className="flex justify-between">
+                      <span className="text-sm font-medium">Phone Number</span>
+                      <span className="text-sm">{selectedCitizen.phone_number}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-sm font-medium">Email</span>
+                      <span className="text-sm">{selectedCitizen.user?.email || 'N/A'}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-sm font-medium">Username</span>
+                      <span className="text-sm">{selectedCitizen.user?.name || 'N/A'}</span>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* Address and Verification */}
+              <div className="grid gap-6 md:grid-cols-2">
+                <Card>
+                  <CardHeader className="pb-3">
+                    <CardTitle className="text-sm flex items-center gap-2">
+                      <IconMapPin className="h-4 w-4" />
+                      Address
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm">{selectedCitizen.address}</p>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader className="pb-3">
+                    <CardTitle className="text-sm flex items-center gap-2">
+                      <IconUserCheck className="h-4 w-4" />
+                      Verification Status
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm font-medium">Status</span>
+                      <Badge className={getStatusBadge(selectedCitizen.verification_status)}>
+                        {selectedCitizen.verification_status}
+                      </Badge>
+                    </div>
+                    {selectedCitizen.verification_notes && (
+                      <div>
+                        <span className="text-sm font-medium block mb-1">Notes</span>
+                        <p className="text-sm text-muted-foreground">
+                          {selectedCitizen.verification_notes}
+                        </p>
+                      </div>
+                    )}
+                    {selectedCitizen.verifier && (
+                      <div className="flex justify-between">
+                        <span className="text-sm font-medium">Verified By</span>
+                        <span className="text-sm">{selectedCitizen.verifier.name}</span>
+                      </div>
+                    )}
+                    <div className="flex justify-between">
+                      <span className="text-sm font-medium">Registered</span>
+                      <span className="text-sm">
+                        {new Date(selectedCitizen.created_at).toLocaleDateString()}
+                      </span>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* Verification Actions for Pending Citizens */}
+              {selectedCitizen.verification_status === 'pending' && (
+                <Card>
+                  <CardHeader className="pb-3">
+                    <CardTitle className="text-sm">Verification Actions</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex gap-2">
+                      <Button
+                        size="sm"
+                        onClick={() => handleVerifyCitizen(selectedCitizen.id, 'verified')}
+                        className="flex-1"
+                      >
+                        <IconUserCheck className="h-4 w-4 mr-1" />
+                        Verify Citizen
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => handleVerifyCitizen(selectedCitizen.id, 'rejected')}
+                        className="flex-1 text-red-600 border-red-200 hover:bg-red-50"
+                      >
+                        Reject Application
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+            </div>
+          )}
         </DialogContent>
       </Dialog>
     </div>
