@@ -23,9 +23,8 @@ export const CitizenDashboard: React.FC = () => {
   const { citizens, createCitizen, updateCitizen } = useCitizens()
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false)
-  
-const flatCitizens = Array.isArray(citizens[0]) ? citizens[0] : citizens
-const userCitizen = flatCitizens.find(c => String(c.user_id) === String(user?.id))
+
+  const userCitizen = Array.isArray(citizens) ? citizens[0] : citizens
 
 
   const stats = [
@@ -37,7 +36,7 @@ const userCitizen = flatCitizens.find(c => String(c.user_id) === String(user?.id
   const handleSubmitProfile = async (e: React.FormEvent) => {
     e.preventDefault()
     const formData = new FormData(e.target as HTMLFormElement)
-    
+
     const data = {
       national_id: formData.get('national_id') as string,
       full_name: formData.get('full_name') as string,
@@ -188,8 +187,8 @@ const userCitizen = flatCitizens.find(c => String(c.user_id) === String(user?.id
               {userCitizen ? 'Edit Profile' : 'Create Citizen Profile'}
             </DialogTitle>
             <DialogDescription>
-              {userCitizen 
-                ? 'Update your personal information' 
+              {userCitizen
+                ? 'Update your personal information'
                 : 'Fill in your details to start the verification process'
               }
             </DialogDescription>
