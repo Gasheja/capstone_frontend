@@ -26,7 +26,7 @@ const Profile: React.FC = () => {
   const { citizens, createCitizen, updateCitizen } = useCitizens()
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
   
-  const userCitizen = citizens.find(c => c.user_id === user?.id)
+  const userCitizen = Array.isArray(citizens) ? citizens[0] : citizens
 
   const handleSubmitProfile = async (e: React.FormEvent) => {
     e.preventDefault()
