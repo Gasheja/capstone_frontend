@@ -30,13 +30,6 @@ export function RegistrationForm({
     email: "",
     password: "",
     password_confirmation: "",
-    
-    // Citizen-specific fields
-    national_id: "",
-    full_name: "",
-    date_of_birth: "",
-    address: "",
-    phone_number: "",
   })
   const [isLoading, setIsLoading] = useState(false)
   const [errors, setErrors] = useState<Record<string, string[]>>({})
@@ -118,7 +111,7 @@ export function RegistrationForm({
                 </h3>
                 
                 {/* Name and Email on same row */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
                   <Field>
                     <FieldLabel htmlFor="name">Full Name *</FieldLabel>
                     <Input
@@ -157,7 +150,7 @@ export function RegistrationForm({
                 </div>
 
                 {/* Password and Confirm Password on same row */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+               <div className="space-y-2">
                   <Field>
                     <FieldLabel htmlFor="password">Password *</FieldLabel>
                     <Input
@@ -203,123 +196,7 @@ export function RegistrationForm({
                 </div>
               </div>
 
-              {/* Citizen Information */}
-              <div className="space-y-4 pt-6 border-t">
-                <h3 className="text-lg font-semibold text-foreground border-b pb-2">
-                  Citizen Information
-                </h3>
-                
-                {/* National ID and Full Name on same row */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <Field>
-                    <FieldLabel htmlFor="national_id">National ID *</FieldLabel>
-                    <Input
-                      id="national_id"
-                      name="national_id"
-                      type="text"
-                      placeholder="1234567890"
-                      value={formData.national_id}
-                      onChange={handleChange}
-                      required
-                      disabled={isLoading}
-                      className={getFieldError('national_id') ? 'border-red-500' : ''}
-                    />
-                    {getFieldError('national_id') && (
-                      <p className="text-sm text-red-600 mt-1">{getFieldError('national_id')}</p>
-                    )}
-                    <FieldDescription>
-                      Your national identification
-                    </FieldDescription>
-                  </Field>
-
-                  <Field>
-                    <FieldLabel htmlFor="full_name">Legal Full Name *</FieldLabel>
-                    <Input
-                      id="full_name"
-                      name="full_name"
-                      type="text"
-                      placeholder="John Michael Doe"
-                      value={formData.full_name}
-                      onChange={handleChange}
-                      required
-                      disabled={isLoading}
-                      className={getFieldError('full_name') ? 'border-red-500' : ''}
-                    />
-                    {getFieldError('full_name') && (
-                      <p className="text-sm text-red-600 mt-1">{getFieldError('full_name')}</p>
-                    )}
-                    <FieldDescription>
-                      As on official ID
-                    </FieldDescription>
-                  </Field>
-                </div>
-
-                {/* Date of Birth and Phone Number on same row */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <Field>
-                    <FieldLabel htmlFor="date_of_birth">Date of Birth *</FieldLabel>
-                    <Input
-                      id="date_of_birth"
-                      name="date_of_birth"
-                      type="date"
-                      value={formData.date_of_birth}
-                      onChange={handleChange}
-                      required
-                      disabled={isLoading}
-                      className={getFieldError('date_of_birth') ? 'border-red-500' : ''}
-                    />
-                    {getFieldError('date_of_birth') && (
-                      <p className="text-sm text-red-600 mt-1">{getFieldError('date_of_birth')}</p>
-                    )}
-                    <FieldDescription>
-                      Your birth date
-                    </FieldDescription>
-                  </Field>
-
-                  <Field>
-                    <FieldLabel htmlFor="phone_number">Phone Number *</FieldLabel>
-                    <Input
-                      id="phone_number"
-                      name="phone_number"
-                      type="tel"
-                      placeholder="+1234567890"
-                      value={formData.phone_number}
-                      onChange={handleChange}
-                      required
-                      disabled={isLoading}
-                      className={getFieldError('phone_number') ? 'border-red-500' : ''}
-                    />
-                    {getFieldError('phone_number') && (
-                      <p className="text-sm text-red-600 mt-1">{getFieldError('phone_number')}</p>
-                    )}
-                    <FieldDescription>
-                      Your contact number
-                    </FieldDescription>
-                  </Field>
-                </div>
-
-                {/* Address - Full width */}
-                <Field>
-                  <FieldLabel htmlFor="address">Complete Address *</FieldLabel>
-                  <Input
-                    id="address"
-                    name="address"
-                    type="text"
-                    placeholder="Enter your complete residential address"
-                    value={formData.address}
-                    onChange={handleChange}
-                    required
-                    disabled={isLoading}
-                    className={getFieldError('address') ? 'border-red-500' : ''}
-                  />
-                  {getFieldError('address') && (
-                    <p className="text-sm text-red-600 mt-1">{getFieldError('address')}</p>
-                  )}
-                  <FieldDescription>
-                    Street, City, State, ZIP Code
-                  </FieldDescription>
-                </Field>
-              </div>
+             
 
               {/* Submit Button */}
               <Field className="pt-4">

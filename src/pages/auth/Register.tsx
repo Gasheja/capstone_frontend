@@ -11,7 +11,7 @@ export default function Register() {
         <p className="text-muted-foreground text-sm md:text-base">Citizen Registration Portal</p>
       </div>
       
-      <div className="flex w-full max-w-3xl flex-col gap-6"> {/* Increased max-width */}
+      <div className="flex  w-full max-w-lg flex-col gap-6"> {/* Increased max-width */}
         <RegistrationForm />
         
         <div className="text-center">
