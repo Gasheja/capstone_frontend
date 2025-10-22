@@ -1,6 +1,6 @@
 // components/app-sidebar.tsx
 import * as React from "react"
-import { IconInnerShadowTop } from "@tabler/icons-react"
+// import { IconInnerShadowTop } from "@tabler/icons-react"
 
 import { NavMain } from "@/components/nav-main"
 import { NavSecondary } from "@/components/nav-secondary"
@@ -43,7 +43,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               className="data-[slot=sidebar-menu-button]:!p-1.5"
             >
               <a href="/">
-                <IconInnerShadowTop className="!size-5" />
+                {/* <IconInnerShadowTop className="!size-5" /> */}
+                <img src="/logo.png" alt="Logo" className="h-10 w-auto" />
                 <span className="text-base font-semibold text-xs">Congo Decision Support System</span>
               </a>
             </SidebarMenuButton>
