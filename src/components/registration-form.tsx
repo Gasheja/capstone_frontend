@@ -19,6 +19,7 @@ import { useState } from "react"
 import { useAuthContext } from "./auth/useAuthContext"
 import { useNavigate } from "react-router-dom"
 import { toast } from "sonner"
+import { Link } from "react-router-dom"
 
 export function RegistrationForm({
   className,
@@ -217,12 +218,12 @@ export function RegistrationForm({
                 </Button>
                 <FieldDescription className="text-center pt-2">
                   Already have an account?{" "}
-                  <a 
-                    href="/login" 
+                  <Link
+                    to="/login" 
                     className="text-blue-600 hover:underline font-medium"
                   >
                     Login here
-                  </a>
+                  </Link>
                 </FieldDescription>
               </Field>
             </FieldGroup>
