@@ -98,3 +98,120 @@ php artisan migrate --seed
 
 # 6️⃣ Start the backend server
 php artisan serve
+💻 Frontend Setup
+# 1️⃣ Navigate to frontend directory
+cd ../frontend
+
+# 2️⃣ Install dependencies
+npm install
+
+# 3️⃣ Run development server
+npm run dev
+congo-dss/
+├── backend/
+│   ├── app/
+│   │   ├── Http/
+│   │   │   ├── Controllers/
+│   │   │   └── Middleware/
+│   │   ├── Models/
+│   │   └── Policies/
+│   ├── database/
+│   │   ├── migrations/
+│   │   └── seeders/
+│   └── routes/
+│       └── api.php
+└── frontend/
+    ├── src/
+    │   ├── components/
+    │   ├── hooks/
+    │   ├── pages/
+    │   ├── services/
+    │   └── types/
+    └── public/
+🔐 API Endpoints
+🔑 Authentication
+Method	Endpoint	Description
+POST	/api/login	User login
+POST	/api/register	Citizen registration
+POST	/api/logout	Logout user
+GET	/api/user	Fetch authenticated user
+👥 User Management
+| Method | Endpoint          | Access     |
+| ------ | ----------------- | ---------- |
+| GET    | `/api/users`      | Admin only |
+| POST   | `/api/users`      | Admin only |
+| PUT    | `/api/users/{id}` | Admin only |
+| DELETE | `/api/users/{id}` | Admin only |
+🧍‍♂️ Citizen Management
+Method	Endpoint	Access
+GET	/api/citizens	Role-based
+POST	/api/citizens	Local Leader
+GET	/api/citizens/my-profile	Citizen
+PATCH	/api/citizens/{id}/verify	Admin/Leader
+📊 Analytics
+Method	Endpoint	Description
+GET	/api/analytics/stats	General system statistics
+GET	/api/analytics/verification-trends	Citizen verification trends
+GET	/api/analytics/demographics	Demographic data insights
+🧍‍♂️ Citizen Management
+Method	Endpoint	Access
+GET	/api/citizens	Role-based
+POST	/api/citizens	Local Leader
+GET	/api/citizens/my-profile	Citizen
+PATCH	/api/citizens/{id}/verify	Admin/Leader
+📊 Analytics
+Method	Endpoint	Description
+GET	/api/analytics/stats	General system statistics
+GET	/api/analytics/verification-trends	Citizen verification trends
+GET	/api/analytics/demographics	Demographic data insights
+🎯 Usage Guide
+👤 For Citizens
+
+📝 Register and complete your verification profile
+
+👁 Track verification status on the dashboard
+
+🧾 Access verified government services
+
+🧑‍💼 For Local Leaders
+
+📋 Review and process verification applications
+
+✅ Approve or reject citizen requests
+
+📊 Generate verification reports
+
+🧠 For Policy Makers
+
+📈 Access system-wide analytics
+
+🧮 Generate decision-support reports
+
+🔍 Monitor demographic and service trends
+
+👑 For Administrators
+
+🧩 Manage users and permissions
+
+⚙ Configure system settings
+
+🛡 Oversee security and logs
+📱 Responsive Design
+
+Optimized for:
+
+💻 Desktop computers
+
+📱 Mobile devices
+
+🧾 Tablets
+
+🖱 Touch interfaces
+🚀 Deployment
+🧩 Backend (Laravel)
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+
+🌐 Frontend (React)
+npm run build
