@@ -1,125 +1,105 @@
-<h1 align="center">🌍 Congo Decision Support System (CDSS)</h1>
+# 🌍 **Congo Decision Support System (CDSS)**
 
-<p align="center">
-  <strong>A multi-role citizen verification and decision support platform</strong><br>
-  Built for transparent, efficient, and data-driven governance in the Democratic Republic of Congo 🇨🇩
-</p>
-
-<p align="center">
-  <a href="https://github.com/your-username/congo-dss"><img src="https://img.shields.io/badge/Status-Active-success?style=flat-square" alt="Status"></a>
-  <a href="#"><img src="https://img.shields.io/badge/License-MIT-blue?style=flat-square" alt="License"></a>
-  <a href="#"><img src="https://img.shields.io/badge/Laravel-10.x-ff2d20?style=flat-square&logo=laravel" alt="Laravel"></a>
-  <a href="#"><img src="https://img.shields.io/badge/React-18.x-61dafb?style=flat-square&logo=react" alt="React"></a>
-  <a href="#"><img src="https://img.shields.io/badge/MySQL-8.0+-blue?style=flat-square&logo=mysql" alt="MySQL"></a>
-</p>
+A comprehensive **multi-role user management and citizen verification platform** designed to enhance **government administration** and **citizen services** in the **Democratic Republic of Congo** 🇨🇩.
 
 ---
 
-## 🚀 Overview
+## 🚀 **Features**
 
-The **Congo Decision Support System (CDSS)** is a secure and scalable platform enabling government agencies, local leaders, and citizens to manage and verify identity information, access services, and support policy decisions through real-time analytics and data visualization.
-
----
-
-## 🧭 Features
-
-### 🎭 Role-Based Access Control
-| Role | Description |
-|------|--------------|
-| 👑 **System Administrator** | Full system management, user control, and configuration |
-| 🧑‍💼 **Local Leader** | Citizen verification, record management, and report generation |
-| 🧠 **Policy Maker** | Access analytics dashboards and decision-making insights |
-| 🧍‍♂️ **Citizen** | Manage personal profiles, track verification status, and access services |
+### 🔐 Role-Based Access Control
+- 🧑‍💻 **System Administrators:** Full control over system settings and user management.  
+- 🧑‍🌾 **Local Leaders:** Handle citizen verification, record management, and application reviews.  
+- 🧑‍🏫 **Policy Makers:** Access analytics, reports, and decision-making insights.  
+- 👤 **Citizens:** Manage personal profiles, track applications, and access public services.
 
 ### ⚙️ Core Functionalities
-- 🔐 **Authentication & Authorization** – Secure login and role-based permissions  
-- 👥 **User Management** – CRUD operations across user roles  
-- 📋 **Citizen Verification** – Streamlined verification with tracking workflow  
-- 📊 **Analytics Dashboard** – Data-driven reporting for policy support  
-- 🧾 **System Configuration** – Customizable settings and role permissions  
-- 📱 **Responsive Design** – Mobile-first UI for accessibility across all devices  
+- 🔒 Secure Authentication & Authorization  
+- 👥 Full CRUD User Management  
+- 🪪 Citizen Verification with Status Tracking  
+- 📊 Interactive Analytics Dashboard  
+- 🧭 System Configuration & Access Controls  
+- 📱 Responsive Design for Mobile and Desktop  
 
 ---
 
-## 🧰 Tech Stack
+## 🛠 **Tech Stack**
 
-### 🖥️ Frontend
-- ⚛️ React 18 (TypeScript)
-- 🎨 Tailwind CSS + `shadcn/ui`
-- 🔄 React Query (state management)
-- 🧭 React Router
-- 📡 Axios (API communication)
-- 📊 Recharts (data visualization)
-- 🔔 Sonner (toast notifications)
+### 🎨 Frontend
+- ⚛️ React 18 with TypeScript  
+- 💨 Tailwind CSS + shadcn/ui  
+- 🔄 React Query for Data Fetching  
+- 🧭 React Router for Navigation  
+- 📡 Axios for API Communication  
+- 📈 Recharts for Data Visualization  
+- 🔔 Sonner for Notifications  
 
-### ⚙️ Backend
-- 🐘 Laravel 10 (PHP)
-- 🔐 Laravel Sanctum (API authentication)
-- 🧩 Eloquent ORM
-- 🗄️ MySQL Database
-- 🧱 Role-based Middleware Authorization
+### 🧰 Backend
+- 🐘 Laravel 10 (PHP Framework)  
+- 🔑 Sanctum for API Authentication  
+- 🗃️ Eloquent ORM for Database Operations  
+- 🧱 MySQL Database  
+- 🧩 Role-Based Middleware for Authorization  
 
 ---
 
-## 📦 Installation Guide
+## 📦 **Installation Guide**
 
-### ✅ Prerequisites
-Before installation, ensure the following are installed:
-- Node.js **16+**
-- PHP **8.1+**
+### 🔧 Prerequisites
+- Node.js **v16+**
+- PHP **v8.1+**
 - Composer
-- MySQL **8.0+**
+- MySQL **v8.0+**
 
 ---
 
-### ⚙️ Backend Setup
-```bash
-# 1️⃣ Clone the repository
+### ⚙️ **Backend Setup**
+
+```
+# Clone the repository
 git clone <repository-url>
 cd congo-dss/backend
 
-# 2️⃣ Install dependencies
+# Install dependencies
 composer install
 
-# 3️⃣ Configure environment
+# Configure environment
 cp .env.example .env
 php artisan key:generate
-
-# 4️⃣ Update .env file
+# Update .env file
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=congo_dss
 DB_USERNAME=your_username
 DB_PASSWORD=your_password
-
-# 5️⃣ Run migrations and seeders
+# Run database migrations and seeders
 php artisan migrate --seed
-
-# 6️⃣ Start the backend server
+# Start server
 php artisan serve
-💻 Frontend Setup
-# 1️⃣ Navigate to frontend directory
+---
+### 💻 **Frontend Setup**
+# Navigate to frontend
 cd ../frontend
 
-# 2️⃣ Install dependencies
+# Install dependencies
 npm install
 
-# 3️⃣ Run development server
+# Start development server
 npm run dev
+---
+### Project strucuture
 congo-dss/
 ├── backend/
 │   ├── app/
 │   │   ├── Http/
 │   │   │   ├── Controllers/
-│   │   │   └── Middleware/
+│   │   │   ├── Middleware/
 │   │   ├── Models/
 │   │   └── Policies/
 │   ├── database/
 │   │   ├── migrations/
 │   │   └── seeders/
-│   └── routes/
-│       └── api.php
+│   └── routes/api.php
 └── frontend/
     ├── src/
     │   ├── components/
@@ -128,90 +108,59 @@ congo-dss/
     │   ├── services/
     │   └── types/
     └── public/
-🔐 API Endpoints
-🔑 Authentication
-Method	Endpoint	Description
-POST	/api/login	User login
-POST	/api/register	Citizen registration
-POST	/api/logout	Logout user
-GET	/api/user	Fetch authenticated user
-👥 User Management
-| Method | Endpoint          | Access     |
-| ------ | ----------------- | ---------- |
-| GET    | `/api/users`      | Admin only |
-| POST   | `/api/users`      | Admin only |
-| PUT    | `/api/users/{id}` | Admin only |
-| DELETE | `/api/users/{id}` | Admin only |
-🧍‍♂️ Citizen Management
-Method	Endpoint	Access
-GET	/api/citizens	Role-based
-POST	/api/citizens	Local Leader
-GET	/api/citizens/my-profile	Citizen
-PATCH	/api/citizens/{id}/verify	Admin/Leader
-📊 Analytics
-Method	Endpoint	Description
-GET	/api/analytics/stats	General system statistics
-GET	/api/analytics/verification-trends	Citizen verification trends
-GET	/api/analytics/demographics	Demographic data insights
-🧍‍♂️ Citizen Management
-Method	Endpoint	Access
-GET	/api/citizens	Role-based
-POST	/api/citizens	Local Leader
-GET	/api/citizens/my-profile	Citizen
-PATCH	/api/citizens/{id}/verify	Admin/Leader
-📊 Analytics
-Method	Endpoint	Description
-GET	/api/analytics/stats	General system statistics
-GET	/api/analytics/verification-trends	Citizen verification trends
-GET	/api/analytics/demographics	Demographic data insights
-🎯 Usage Guide
-👤 For Citizens
+---
+### 🔐 ***API Endpoints***
+## 🪪 Authentication
 
-📝 Register and complete your verification profile
+POST /api/login → Login user
 
-👁 Track verification status on the dashboard
+POST /api/register → Register citizen
 
-🧾 Access verified government services
+POST /api/logout → Logout user
 
-🧑‍💼 For Local Leaders
+GET /api/user → Get authenticated user
 
-📋 Review and process verification applications
+## 👥 User Management
 
-✅ Approve or reject citizen requests
+GET /api/users → List all users (Admin only)
 
-📊 Generate verification reports
+POST /api/users → Create user (Admin only)
 
-🧠 For Policy Makers
+PUT /api/users/{id} → Update user
 
-📈 Access system-wide analytics
+DELETE /api/users/{id} → Delete user (Admin only)
 
-🧮 Generate decision-support reports
+## 🧾 Citizen Management
 
-🔍 Monitor demographic and service trends
+GET /api/citizens → List citizens
 
-👑 For Administrators
+POST /api/citizens → Create citizen profile
 
-🧩 Manage users and permissions
+GET /api/citizens/my-profile → Get citizen’s profile
 
-⚙ Configure system settings
+PATCH /api/citizens/{id}/verify → Verify citizen
 
-🛡 Oversee security and logs
-📱 Responsive Design
+## 📈 Analytics
 
-Optimized for:
+GET /api/analytics/stats → System statistics
 
-💻 Desktop computers
+GET /api/analytics/verification-trends → Trends overview
 
-📱 Mobile devices
-
-🧾 Tablets
-
-🖱 Touch interfaces
-🚀 Deployment
-🧩 Backend (Laravel)
+GET /api/analytics/demographics → Citizen demographics
+---
+### 🚀 **Deployment**
+## 🌐 Backend Deployment
+# Optimize configuration
 php artisan config:cache
 php artisan route:cache
 php artisan view:cache
-
-🌐 Frontend (React)
+## 💻 Frontend Deployment
 npm run build
+---
+###📎 Important Links
+
+##🌍 Live Demo: https://cdss-demo.vercel.app
+
+💾 Repository: https://github.com/username/congo-dss
+
+🧱 Backend Docs: https://api-docs.cdss.org
