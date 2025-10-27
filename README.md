@@ -84,7 +84,9 @@ php artisan migrate --seed
 
 # Start development server
 php artisan serve
-## **Front-end Set up**
+---
+### **Frontend Setup**
+```
 # Navigate to frontend
 cd ../frontend
 
@@ -93,4 +95,5 @@ npm install
 
 # Start development server
 npm run dev
+
 
