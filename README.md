@@ -56,12 +56,12 @@ php artisan key:generate
 ```
 Update .env file
 
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=congo_dss
-DB_USERNAME=your_username
-DB_PASSWORD=your_password
+- DB_CONNECTION=mysql
+- DB_HOST=127.0.0.1
+- DB_PORT=3306
+- DB_DATABASE=congo_dss
+- DB_USERNAME=your_username
+- DB_PASSWORD=your_password
 ---
 Run migrations and seeders
 ```
@@ -120,7 +120,7 @@ congo-dss/
 | POST   | `/api/register` | Citizen registration           |
 | POST   | `/api/logout`   | User logout                    |
 | GET    | `/api/user`     | Get current authenticated user |
----
+
 ### User Management
 
 | Method | Endpoint          | Description                    |
@@ -138,3 +138,95 @@ congo-dss/
 | GET    | `/api/citizens/my-profile`  | Get logged-in citizen profile           |
 | PATCH  | `/api/citizens/{id}/verify` | Verify citizen *(Admin/Local Leader)*   |
 
+### Analytics
+| Method | Endpoint                             | Description                   |
+| ------ | ------------------------------------ | ----------------------------- |
+| GET    | `/api/analytics/stats`               | System statistics overview    |
+| GET    | `/api/analytics/verification-trends` | Verification trends over time |
+| GET    | `/api/analytics/demographics`        | Citizen demographic data      |
+
+---
+
+## 🎯 Usage Guide
+#### For Citizens
+
+- Register with your personal information
+
+- Complete your profile for verification
+
+- Track your verification status in the dashboard
+
+- Access verified services
+
+#### For Local Leaders
+
+- Review pending verification requests
+
+- Approve or reject citizen applications
+
+- Manage and update citizen records
+
+#### For Policy Makers
+
+- View analytics dashboards
+
+- Generate policy decision reports
+
+- Track demographic and verification trends
+
+#### For System Administrators
+
+- Manage all users and system roles
+
+- Configure system and security settings
+
+- Oversee application-wide data and performance
+---
+## 🔒 Security Features
+
+- Role-Based Access Control (RBAC)
+- Laravel Sanctum API Token Authentication
+- Input Validation and Sanitization
+- CSRF Protection
+- Password Hashing and Secure Sessions
+- Audit Logging and Access Monitoring
+---
+## 📱 Responsive Design
+Optimized for:
+
+- 🖥 Desktop
+
+- 📱 Mobile
+
+- 💻 Tablet
+---
+## 🚀 Deployment
+### Backend Deployment
+- Configure environment variables
+- Set up SSL certificate
+- Configure your web server (Nginx/Apache)
+- Optimize your Laravel app:
+```
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+```
+### Frontend Deployment
+- Build for production:
+```
+npm run build
+```
+- Deploy the build folder to Netlify
+- Set the build command as:
+```
+npm run build
+```
+- and the publish directory as:
+```
+dist
+```
+---
+## 📎 Important Links
+- 🧩 Frontend Repository:
+- 🧱 Backend Repository:
+- Deployment: 
