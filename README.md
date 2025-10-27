@@ -1,4 +1,4 @@
-# 🇨🇩 Congo Decision Support System (CDSS)
+# Congo Decision Support System (CDSS)
 
 A comprehensive multi-role user management and citizen verification platform designed for government administration and citizen services in the Democratic Republic of Congo.
 
@@ -44,8 +44,8 @@ A comprehensive multi-role user management and citizen verification platform des
 
 #### 1️⃣ Clone the Repository
 ```bash
-git clone <repository-url>
-cd congo-dss
+git clone https://github.com/Gasheja/capstone_frontend.git
+cd capstone_frontend
 ```
 ### 2️⃣ Backend Setup
 ```
@@ -227,6 +227,7 @@ dist
 ```
 ---
 ## 📎 Important Links
-- 🧩 Frontend Repository:
-- 🧱 Backend Repository:
-- Deployment: 
+- 🧩 Frontend Repository: https://github.com/Gasheja/capstone_frontend
+- 🧱 Backend Repository: https://github.com/Gasheja/Capstone
+- Deployment: https://congodecisionsupport.netlify.app/
+- Demo: https://drive.google.com/file/d/1mWDocnjCo-TQ4jatl_RbQCbetQ-ODpS0/view?usp=drivesdk
