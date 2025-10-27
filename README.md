@@ -86,7 +86,7 @@ php artisan migrate --seed
 php artisan serve
 ---
 ### **Frontend Setup**
-```
+
 # Navigate to frontend
 cd ../frontend
 
