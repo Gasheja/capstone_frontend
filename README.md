@@ -1,54 +1,96 @@
-<!-- 🌍 Congo Decision Support System (CDSS) -->
+# 🇨🇩 Congo Decision Support System (CDSS)
 
-# 🌍 **Congo Decision Support System (CDSS)**
-
-> A comprehensive multi-role user management and citizen verification platform designed to enhance **government administration** and **citizen services** in the **Democratic Republic of Congo** 🇨🇩.
+> A comprehensive multi-role user management and citizen verification platform designed for government administration and citizen services in the Democratic Republic of Congo.
 
 ---
 
-## 🚀 **Features**
+## 🚀 Features
 
-### 🔐 Role-Based Access Control
-- 🧑‍💻 **System Administrators:** Full control over system settings and user management  
-- 🧑‍🌾 **Local Leaders:** Citizen verification, record management, and application review  
-- 🧑‍🏫 **Policy Makers:** Analytics, reports, and policy decision support  
-- 👤 **Citizens:** Personal profile management, application tracking, and access to services  
-
-### ⚙️ Core Functionalities
-- 🔒 **Authentication & Authorization:** Secure login and registration with role-based access  
-- 👥 **User Management:** CRUD operations for all user roles  
-- 🪪 **Citizen Verification:** Streamlined verification with status tracking  
-- 📊 **Analytics Dashboard:** Interactive visualizations and reports  
-- 🧭 **System Configuration:** Admin-level settings and controls  
-- 📱 **Responsive Design:** Optimized for all devices  
+### **Role-Based Access Control**
+| Role | Description |
+|------|--------------|
+| **System Administrators** | Full system control, user management, and configuration |
+| **Local Leaders** | Citizen verification, record management, and application review |
+| **Policy Makers** | Data analytics, reporting, and policy decision support |
+| **Citizens** | Personal profile management, application tracking, and service access |
 
 ---
 
-## 💻 Technologies Used
-
-| Category | Technology |
-|-----------|-------------|
-| **Frontend** | HTML5, CSS3, JavaScript |
-| **Backend** | PHP 8+ |
-| **Database** | MySQL |
-| **Frameworks/Tools** | XAMPP, phpMyAdmin |
-| **Version Control** | Git & GitHub |
-| **Visualization** | Chart.js / Power BI |
-| **Testing Environment** | Localhost (XAMPP) |
+### **Core Functionalities**
+- 🔐 **Authentication & Authorization:** Secure login/registration with role-based permissions  
+- 👥 **User Management:** Complete CRUD operations for all user types  
+- 📋 **Citizen Verification:** Streamlined verification workflow with status tracking  
+- 📊 **Analytics Dashboard:** Comprehensive data visualization and reporting  
+- ⚙ **System Configuration:** Flexible settings and security management  
+- 📱 **Responsive Design:** Mobile-friendly interface built with modern UI components  
 
 ---
 
-## ⚙️ Installation Guide
+## 🛠 Tech Stack
 
-1. **Clone the Repository**
-   ```bash
-   git clone https://github.com/Gasheja/capstone_frontend.git
-``
-   ##🔗 Important Links
+### **Frontend**
+- ⚛️ React 18 with TypeScript  
+- 🎨 Tailwind CSS for styling  
+- 🧩 shadcn/ui component library  
+- 🔄 React Query for state management  
+- 🧭 React Router for navigation  
+- 📡 Axios for API communication  
+- 📈 Recharts for data visualization  
+- 🔔 Sonner for toast notifications  
 
-🌐 Live Demo: https://drive.google.com/file/d/19L5wv29TmgiCW8LxUMEB_hE0zLnQ9W5L/view?usp=drive_link
+### **Backend**
+- 🐘 Laravel 10 (PHP framework)  
+- 🔑 Sanctum for API authentication  
+- 🗃 Eloquent ORM for database operations  
+- 🧱 MySQL database  
+- 🧰 Role-based middleware for authorization  
 
-📁 Back-end Repository: https://github.com/Gasheja/Capstone
+---
 
-Deployment: 
-https://congodecisionsupport.netlify.app/
+## 📦 Installation
+
+### **Prerequisites**
+- Node.js **v16+**
+- PHP **v8.1+**
+- Composer
+- MySQL **v8.0+**
+
+---
+
+### **Backend Setup**
+
+```bash
+# Clone the repository
+git clone <repository-url>
+cd congo-dss/backend
+
+# Install PHP dependencies
+composer install
+
+# Configure environment
+cp .env.example .env
+php artisan key:generate
+
+# Update .env with database credentials
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=congo_dss
+DB_USERNAME=your_username
+DB_PASSWORD=your_password
+
+# Run migrations and seeders
+php artisan migrate --seed
+
+# Start development server
+php artisan serve
+## **Front-end Set up**
+# Navigate to frontend
+cd ../frontend
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
